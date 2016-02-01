@@ -13,14 +13,15 @@ class DBConnect
 public:
     DBConnect(QString user, QString pass);
     void createConnections();
-    const bool connectionStatus();
+    bool connectionStatus();
 
 private:
     QString _user;
     QString _pass;
-    const QString _dbURL;
+    QString _dbURL;
     QSqlDatabase *_tortugaDB;
     bool connected;
+
 };
 
 #endif // DBCONNECT_H
