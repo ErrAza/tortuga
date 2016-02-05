@@ -44,3 +44,13 @@ QString User::GetPassWord()
 {
     return _passWord;
 }
+
+QString User::GetAuthType()
+{
+    return _type;
+}
+
+void User::SetAuthType(QString authType)
+{
+    _type = authType;
+}

@@ -9,14 +9,5 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.show();
 
-
-    DBConnect dbHandler("Sean", "jpxfkmse2-");
-    dbHandler.createConnections();
-
-    if (dbHandler.connectionStatus() == true)
-    {
-       QMessageBox::information(0, "Tortuga Connection", "Connected");
-    }
-
     return a.exec();
 }

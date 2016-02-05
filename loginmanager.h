@@ -3,7 +3,10 @@
 
 #include <QMap>
 #include <QMessageBox>
+#include <QSqlQuery>
 #include "user.h"
+#include <cstdlib>
+#include <string>
 
 class LoginManager : public QMap<QString, User*>
 {
@@ -13,6 +16,9 @@ public:
     void Login(QString username, QString password);
     int GetListSize();
     const User* retrieveProfile(QString username);
+    QString Hash(QString results);
+    QString ReverseHash(QString results);
+    void AddUserToDB(User *user);
 
 private:
     QMap<QString, User*> *userDB;

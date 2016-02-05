@@ -1,24 +1,24 @@
 #include "dbconnect.h"
 #include <QtSql/QSql>
+#include <QSqlQuery>
+
 DBConnect::DBConnect(QString user, QString pass) : _user(user), _pass(pass)
 {
-    _dbURL = "tortuga.database.windows.net";
+    _dbURL = "/home/sean/Documents/Qt Projects/Project Tortuga/tortuga/tortugaDB.sqlite";
 }
 
 void DBConnect::createConnections()
 {
     connected = false;
-    _tortugaDB = new QSqlDatabase();
-    _tortugaDB->addDatabase("QODBC");
-    _tortugaDB->setHostName(_dbURL);
-    _tortugaDB->setDatabaseName(_dbURL);
-    _tortugaDB->setUserName(_user);
-    _tortugaDB->setPassword(_pass);
-    connected = _tortugaDB->open();
+    _tortugaDB = QSqlDatabase::addDatabase("QSQLITE");
+    _tortugaDB.setHostName("localhost");
+    _tortugaDB.setDatabaseName(_dbURL);
+    _tortugaDB.open();
+    connected = _tortugaDB.open();
 }
 
 bool DBConnect::connectionStatus()
 {
-    connected = _tortugaDB->open();
+    connected = _tortugaDB.open();
     return connected;
 }

@@ -19,7 +19,7 @@ private:
     QString _user;
     QString _pass;
     QString _dbURL;
-    QSqlDatabase *_tortugaDB;
+    QSqlDatabase _tortugaDB;
     bool connected;
 
 };

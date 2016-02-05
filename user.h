@@ -15,10 +15,13 @@ public:
     void ResetLoginFailCount();
     void AddFailedLoginAttempt();
     bool GetLockedStatus();
+    void SetAuthType(QString authType);
+    QString GetAuthType();
 
 private:
     QString _userName;
     QString _passWord;
+    QString _type;
     int _loginFailureCounter;
     bool _locked;
 };

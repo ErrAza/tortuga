@@ -1,13 +1,18 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
-{
-    loginManager = new LoginManager();
-    ui->setupUi(this);
+{   
+    dbHandler = new DBConnect("Sean", "jpxfkmse2-");
+    dbHandler->createConnections();
 
+    loginManager = new LoginManager();
+    ui->setupUi(this);\
+
+    connect(ui->actionTest_Connection, SIGNAL(triggered()), this, SLOT(on_actionTest_Connection_triggered()));
 }
 
 MainWindow::~MainWindow()
@@ -29,5 +34,13 @@ void MainWindow::on_btnRegister_clicked()
     QString username = ui->txtUserName->text();
     QString password = ui->txtPassWord->text();
 
-    loginManager->RegisterUser(username, password);
+    loginManager->RegisterUser(username, password);    
+}
+
+void MainWindow::on_actionTest_Connection_triggered()
+{
+    if (dbHandler->connectionStatus() == true)
+    {
+       QMessageBox::information(0, "Tortuga Connection Active", "Connected");
+    }
 }
