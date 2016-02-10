@@ -17,13 +17,23 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     dbconnect.cpp \
     user.cpp \
-    loginmanager.cpp
+    loginmanager.cpp \
+    project.cpp \
+    scene.cpp \
+    mainmenu.cpp \
+    newprojectdialog.cpp
 
 
 HEADERS  += mainwindow.h \
     dbconnect.h \
     user.h \
-    loginmanager.h
+    loginmanager.h \
+    project.h \
+    scene.h \
+    mainmenu.h \
+    newprojectdialog.h
 
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    mainmenu.ui \
+    newprojectdialog.ui

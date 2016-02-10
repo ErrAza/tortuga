@@ -1,52 +1,110 @@
 #include "loginmanager.h"
-#include <QMessageBox>
 
 
 LoginManager::LoginManager()
 {
     userDB = new QMap<QString, User*>;
+    projectDB = new QMap<QString, Project*>;
+
+    QSqlQuery userQuery("SELECT * FROM users");
+    QSqlQuery projectQuery("SELECT * FROM projects");
+
+    while (userQuery.next())
+    {
+        QString name = userQuery.value(0).toString();
+        QString pw = userQuery.value(1).toString();
+        QString type = userQuery.value(2).toString();
+
+        User *user = new User(name, pw);
+        user->SetAuthType(type);
+
+        userDB->insert(name, user);
+    }
+
+    while (projectQuery.next())
+    {
+        QString name = projectQuery.value(0).toString();
+        QString desc = projectQuery.value(1).toString();
+        int frameRate = projectQuery.value(2).toInt();
+        int sceneCount = projectQuery.value(3).toInt();
+        QString client = projectQuery.value(4).toString();
+        QString password = projectQuery.value(5).toString();
+
+        Project *project = new Project(name, desc, frameRate);
+        project->SetClient(client);
+        project->SetPassword(password);
+        project->_sceneCount = sceneCount;
+
+        projectDB->insert(name, project);
+    }
 }
 
-void LoginManager::Login(QString username, QString password)
+
+bool LoginManager::PasswordCheck(QString username, QString password)
 {
-    if(retrieveProfile(username) != NULL)
+    bool success = false;
+
+    if(userDB->contains(username))
     {
-        int count = userDB->value(username)->GetLoginFailCount();
         if(userDB->value(username)->GetPassWord() == password)
+        {
+            success = true;
+        }
+    }
+
+    return success;
+
+}
+
+void LoginManager::SetUserLoggedIn(User *user)
+{
+    user->_loggedIn = true;
+    QString date = QDate::currentDate().toString();
+    QString time = QTime::currentTime().toString();
+    QString div = "'";
+    QString command = "UPDATE users SET lastlogin=" + div + date + " / " + time + div + "WHERE name=" + div + user->GetUserName() + div;
+    QSqlQuery query;
+    query.exec(command);
+    currentUser = user;
+}
+
+void LoginManager::SetUserLoggedOut(User *user)
+{
+    user->_loggedIn = false;
+    QString date = QDate::currentDate().toString();
+    QString time = QTime::currentTime().toString();
+    QString div = "'";
+    QString command = "UPDATE users SET lastlogin=" + div + date + " / " + time + div + "WHERE name=" + div + user->GetUserName() + div;
+    QSqlQuery query;
+    query.exec(command);
+}
+
+bool LoginManager::Login(QString username, QString password)
+{
+        bool success = false;
+
+        if(PasswordCheck(username, password))
         {
             //Login Procedure Success
             QMessageBox::information(0, "Login Success", "User: " + username + " logged in successfully");
-            userDB->value(username)->ResetLoginFailCount();
+            SetUserLoggedIn(userDB->value(username));
+            success = true;
         }
         else
         {
-            //Login Procedure Failure
-            if (userDB->value(username)->GetLoginFailCount() == 0)
-            {
-                //Incorrect Password Entered too many times
-                QMessageBox::warning(0, "Account Locked", "Incorrect password entered too many times. Account is now soft-locked");
-            }
-            else
-            {
-                userDB->value(username)->AddFailedLoginAttempt();
-                QMessageBox::warning(0, userDB->value(username)->GetPassWord(), "Login password incorrect. " + QString::number(count) + " attempts remaining.");
-
-            }
+            //Login Procedure Failed
+             QMessageBox::warning(0, username, "Login password incorrect.");
         }
-    }
-    else
-    {
-        QMessageBox::warning(0, "User Not Found", "The user: " + username + " does not exist.");
-    }
+
+    return success;
 }
 
 void LoginManager::RegisterUser(QString username, QString password)
 {
     if (retrieveProfile(username) == NULL)
     {
-        User *  newUser = new User(username, Hash(password));
+        User *  newUser = new User(username, password);
         userDB->insert(username, newUser);
-        newUser->ResetLoginFailCount();
         AddUserToDB(newUser);
         QMessageBox::information(0, "Success", "User: " + username + " created successfully.");
     }
@@ -63,7 +121,6 @@ void LoginManager::AddUserToDB(User *user)
     name = user->GetUserName();
     password = user->GetPassWord();
     type = "animator";
-
 
     bool success;
     QSqlQuery query;

@@ -23,8 +23,17 @@
       <height>29</height>
      </rect>
     </property>
+    <property name="focusPolicy">
+     <enum>Qt::WheelFocus</enum>
+    </property>
     <property name="text">
      <string>Login</string>
+    </property>
+    <property name="autoDefault">
+     <bool>false</bool>
+    </property>
+    <property name="default">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QLineEdit" name="txtUserName">
@@ -147,21 +156,6 @@
     <addaction name="actionLogout"/>
     <addaction name="actionPreferences"/>
    </widget>
-   <widget class="QMenu" name="menuEdit">
-    <property name="title">
-     <string>Edit</string>
-    </property>
-    <addaction name="actionCut"/>
-    <addaction name="actionCopy"/>
-    <addaction name="actionPaste"/>
-   </widget>
-   <widget class="QMenu" name="menuTools">
-    <property name="title">
-     <string>Tools</string>
-    </property>
-    <addaction name="actionPrint"/>
-    <addaction name="actionTest_Connection"/>
-   </widget>
    <widget class="QMenu" name="menuAbout">
     <property name="title">
      <string>About</string>
@@ -169,8 +163,6 @@
     <addaction name="actionAbout_Tortuga"/>
    </widget>
    <addaction name="menuUser"/>
-   <addaction name="menuEdit"/>
-   <addaction name="menuTools"/>
    <addaction name="menuAbout"/>
   </widget>
   <action name="actionAbout_Tortuga">
