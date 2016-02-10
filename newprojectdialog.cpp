@@ -57,5 +57,8 @@ void NewProjectDialog::on_btnSave_clicked()
 
 void NewProjectDialog::on_btnCancel_clicked()
 {
+    QMessageBox::warning(0, "", QString::number(m_loginManager->currentUser->projects->size()));
     this->close();
 }
+
+

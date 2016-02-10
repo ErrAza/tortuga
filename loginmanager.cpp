@@ -23,19 +23,19 @@ LoginManager::LoginManager()
 
     while (projectQuery.next())
     {
-        QString name = projectQuery.value(0).toString();
+        QString title = projectQuery.value(0).toString();
         QString desc = projectQuery.value(1).toString();
         int frameRate = projectQuery.value(2).toInt();
         int sceneCount = projectQuery.value(3).toInt();
         QString client = projectQuery.value(4).toString();
         QString password = projectQuery.value(5).toString();
 
-        Project *project = new Project(name, desc, frameRate);
+        Project *project = new Project(title, desc, frameRate);
         project->SetClient(client);
         project->SetPassword(password);
         project->_sceneCount = sceneCount;
 
-        projectDB->insert(name, project);
+        projectDB->insert(title, project);
     }
 }
 
@@ -106,6 +106,9 @@ void LoginManager::RegisterUser(QString username, QString password)
         User *  newUser = new User(username, password);
         userDB->insert(username, newUser);
         AddUserToDB(newUser);
+        QString div = "'";
+        QSqlQuery createUserTable("CREATE TABLE " + div + username.toLower() + "_projects" + div + " (" + div + "project_name" + div + "varchar PRIMARY KEY  NOT NULL);");
+        createUserTable.exec();
         QMessageBox::information(0, "Success", "User: " + username + " created successfully.");
     }
     else
@@ -117,18 +120,16 @@ void LoginManager::RegisterUser(QString username, QString password)
 void LoginManager::AddUserToDB(User *user)
 {
     QString name, password, type;
-    QString divider = "'";
+    QString div = "'";
     name = user->GetUserName();
     password = user->GetPassWord();
     type = "animator";
+    int projectCount = 0;
 
-    bool success;
     QSqlQuery query;
-    QString command = "INSERT INTO users VALUES (" + divider + name + divider + ", " + divider + password + divider + ", " + divider + type + divider + ");";
-    if (success = query.exec(command))
-    {
-        QMessageBox::warning(0, "Yes", "Yes");
-    }
+    QString command = "INSERT INTO users VALUES (" + div + name + div + ", " + div + password + div + ", " + div + type + div + ", "  + div + QDate::currentDate().toString() + div + ", " + div + QString::number(projectCount) + div + ");";
+    query.exec(command);
+    QMessageBox::information(0, "", command);
 }
 
 int LoginManager::GetListSize()

@@ -30,6 +30,7 @@ private:
     int _fps;
     QString _password;
     QString _client;
+    QString _status;
 
 
 };
