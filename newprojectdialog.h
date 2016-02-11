@@ -19,6 +19,7 @@ public:
     ~NewProjectDialog();
     LoginManager *m_loginManager;
     bool RetrieveProject(QString title, QString password);
+    void AddProjectToUserProfile(QString name);
 
 private:
     Ui::NewProjectDialog *ui;

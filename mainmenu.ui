@@ -27,19 +27,230 @@
      <number>0</number>
     </property>
     <widget class="QWidget" name="tab">
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
      <attribute name="title">
-      <string>Tab 1</string>
+      <string>Test</string>
      </attribute>
-     <widget class="QTableView" name="tableView">
+     <widget class="QWidget" name="sceneBox" native="true">
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>10</y>
-        <width>761</width>
-        <height>461</height>
+        <y>20</y>
+        <width>750</width>
+        <height>140</height>
        </rect>
       </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <widget class="QFrame" name="sceneBoxFrame">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>731</width>
+         <height>121</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <widget class="QFrame" name="KF_Frame">
+        <property name="geometry">
+         <rect>
+          <x>130</x>
+          <y>0</y>
+          <width>141</width>
+          <height>121</height>
+         </rect>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <widget class="QWidget" name="">
+         <property name="geometry">
+          <rect>
+           <x>11</x>
+           <y>1</y>
+           <width>120</width>
+           <height>91</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <item>
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>Key Frame Animator</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="comboBox"/>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_3">
+            <property name="text">
+             <string>Approved</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+       <widget class="QFrame" name="TW_Frame">
+        <property name="geometry">
+         <rect>
+          <x>270</x>
+          <y>0</y>
+          <width>141</width>
+          <height>121</height>
+         </rect>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <widget class="QWidget" name="">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>1</y>
+           <width>121</width>
+           <height>91</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>Tween Animator</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="comboBox_2"/>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_4">
+            <property name="text">
+             <string>Approved</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <zorder>comboBox_2</zorder>
+        <zorder>label_3</zorder>
+        <zorder>label_3</zorder>
+        <zorder>checkBox_4</zorder>
+       </widget>
+       <widget class="QFrame" name="Res_Frame">
+        <property name="geometry">
+         <rect>
+          <x>569</x>
+          <y>0</y>
+          <width>161</width>
+          <height>121</height>
+         </rect>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <widget class="QWidget" name="">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>10</y>
+           <width>122</width>
+           <height>54</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <widget class="QCheckBox" name="checkBox">
+            <property name="text">
+             <string>Half Res Render</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_2">
+            <property name="text">
+             <string>Full Res Render</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+       <widget class="QPlainTextEdit" name="txtNotes">
+        <property name="geometry">
+         <rect>
+          <x>410</x>
+          <y>0</y>
+          <width>161</width>
+          <height>121</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QFrame" name="Title_Frame">
+        <property name="geometry">
+         <rect>
+          <x>4</x>
+          <y>0</y>
+          <width>121</width>
+          <height>91</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_4">
+         <item>
+          <widget class="QLabel" name="lblSceneName">
+           <property name="font">
+            <font>
+             <pointsize>14</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Scene: Sc001</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>Frames: 54</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_4">
+           <property name="text">
+            <string>58 Seconds</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </widget>
      </widget>
+     <zorder>sceneBox</zorder>
+     <zorder>Title_Frame</zorder>
+     <zorder>KF_Frame</zorder>
+     <zorder>Res_Frame</zorder>
+     <zorder>TW_Frame</zorder>
     </widget>
    </widget>
   </widget>

@@ -4,6 +4,7 @@
 #include <scene.h>
 #include <QVector>
 #include <QVariant>
+#include <QStringList>
 
 class Scene;
 
@@ -23,6 +24,7 @@ public:
     void SetClient(QString client);
     QString GetClient();
     int _sceneCount;
+    QStringList userList;
 
 private:
     QString _title;

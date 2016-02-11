@@ -43,6 +43,8 @@ void NewProjectDialog::on_btnSave_clicked()
     if (RetrieveProject(title, password))
     {
         m_loginManager->currentUser->projects->append(m_loginManager->projectDB->value(title));
+        AddProjectToUserProfile(title);
+        this->close();
         QMessageBox::information(0, "Success", "Project: " + title + " added.");
     }
     else if (!m_loginManager->projectDB->contains(title))
@@ -55,9 +57,16 @@ void NewProjectDialog::on_btnSave_clicked()
     }
 }
 
+void NewProjectDialog::AddProjectToUserProfile(QString name)
+{
+    QString div = "'";
+    QSqlQuery query;
+    QString command = "INSERT INTO " + m_loginManager->currentUser->GetUserName() + "_projects" + " VALUES(" + div + name + div + ");";
+    query.exec(command);
+}
+
 void NewProjectDialog::on_btnCancel_clicked()
 {
-    QMessageBox::warning(0, "", QString::number(m_loginManager->currentUser->projects->size()));
     this->close();
 }
 

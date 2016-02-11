@@ -36,7 +36,36 @@ LoginManager::LoginManager()
         project->_sceneCount = sceneCount;
 
         projectDB->insert(title, project);
+        QString div = "'";
+        QSqlQuery projectTable("CREATE TABLE " + title + "_animators" +  " (" + div + "user" + div + "varchar PRIMARY KEY  NOT NULL);");
+        projectTable.exec();
     }
+
+    UpdateProjectUserTables();
+}
+
+void LoginManager::UpdateProjectUserTables()
+{
+        QMap<QString, User*>::iterator i;
+        for (i = userDB->begin(); i != userDB->end(); i++)
+        {
+            for (int j = 0; j < userDB->value(i.key())->projects->size(); j++)
+            {
+                QString command = "INSERT INTO " + userDB->value(i.key())->projects->at(j)->GetTitle() + "_animators" + "VALUES (" + "'" + i.key() + "');";
+                QSqlQuery query;
+                query.exec(command);
+            }
+        }
+}
+
+void LoginManager::RetrieveUserProjects(QString name)
+{
+     QSqlQuery projQuery("SELECT * FROM " + name + "_projects");
+     while (projQuery.next())
+     {
+         QString title = projQuery.value(0).toString();
+         currentUser->projects->append(projectDB->value(title));
+     }
 }
 
 
@@ -88,6 +117,7 @@ bool LoginManager::Login(QString username, QString password)
             //Login Procedure Success
             QMessageBox::information(0, "Login Success", "User: " + username + " logged in successfully");
             SetUserLoggedIn(userDB->value(username));
+            RetrieveUserProjects(username);
             success = true;
         }
         else
@@ -129,7 +159,6 @@ void LoginManager::AddUserToDB(User *user)
     QSqlQuery query;
     QString command = "INSERT INTO users VALUES (" + div + name + div + ", " + div + password + div + ", " + div + type + div + ", "  + div + QDate::currentDate().toString() + div + ", " + div + QString::number(projectCount) + div + ");";
     query.exec(command);
-    QMessageBox::information(0, "", command);
 }
 
 int LoginManager::GetListSize()

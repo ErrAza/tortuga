@@ -1,4 +1,5 @@
 #include "mainmenu.h"
+#include <QGroupBox>
 
 
 MainMenu::MainMenu(QWidget *parent) :
@@ -12,6 +13,36 @@ MainMenu::MainMenu(QWidget *parent, LoginManager *loginManager) : QMainWindow(pa
 {
     ui->setupUi(this);
 
+    if (m_loginManager->currentUser->projects->size() > 0)
+    {
+        if (m_loginManager->currentUser->projects->size() == 1)
+        {
+                ui->tabWidget->setTabText(0, m_loginManager->currentUser->projects->at(0)->GetTitle());
+        }
+        else
+        {
+            ui->tabWidget->setTabText(0, m_loginManager->currentUser->projects->at(0)->GetTitle());
+            for (int i = 0; i < m_loginManager->currentUser->projects->size() - 1; i++)
+            {
+                QString title = m_loginManager->currentUser->projects->at(i + 1)->GetTitle();
+                QWidget *newTab = new QWidget(ui->tabWidget);
+                ui->tabWidget->addTab(newTab, tr(title.toLatin1()));
+            }
+        }
+        PopulateProjects();
+    }
+}
+
+void MainMenu::PopulateProjects()
+{
+    for (int i = 0; i < m_loginManager->currentUser->projects->size(); i++)
+    {
+        for (int j = 0; j < m_loginManager->currentUser->projects->at(i)->_sceneCount; j++)
+        {
+            QWidget *newWidget = new QWidget();
+
+        }
+    }
 }
 
 MainMenu::~MainMenu()

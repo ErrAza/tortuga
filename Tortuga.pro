@@ -21,7 +21,8 @@ SOURCES += main.cpp\
     project.cpp \
     scene.cpp \
     mainmenu.cpp \
-    newprojectdialog.cpp
+    newprojectdialog.cpp \
+    scenebox.cpp
 
 
 HEADERS  += mainwindow.h \
@@ -31,7 +32,8 @@ HEADERS  += mainwindow.h \
     project.h \
     scene.h \
     mainmenu.h \
-    newprojectdialog.h
+    newprojectdialog.h \
+    scenebox.h
 
 
 FORMS    += mainwindow.ui \

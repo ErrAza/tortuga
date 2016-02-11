@@ -31,6 +31,7 @@ private:
     QPushButton *btnCancel;
     QLineEdit *txtTitle;
     QLineEdit *txtPassword;
+    void PopulateProjects();
 
 private slots:
     void on_actionAdd_Project_triggered();

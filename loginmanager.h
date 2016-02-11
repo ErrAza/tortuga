@@ -30,6 +30,8 @@ public:
     User *currentUser;
     QMap<QString, User*> *userDB;
     QMap<QString, Project*> *projectDB;
+    void RetrieveUserProjects(QString name);
+    void UpdateProjectUserTables();
 
 private:
 
